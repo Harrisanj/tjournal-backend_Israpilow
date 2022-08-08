@@ -1,24 +1,27 @@
 import {
-  Entity,
   Column,
-  PrimaryGeneratedColumn,
   CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('users') // Entity - это модель
-export class UserEntity {
+@Entity('posts')
+export class PostEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  fullName: string;
+  title: string;
 
   @Column()
-  email: string;
+  body: string;
+
+  @Column({ default: 0 })
+  views: number;
 
   @Column({ nullable: true })
-  password?: string;
+  tags?: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;

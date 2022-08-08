@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 
-@Controller()
+@Controller() // Контроллер - это та логика, которая преднозначена для опеределенного функционала
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
