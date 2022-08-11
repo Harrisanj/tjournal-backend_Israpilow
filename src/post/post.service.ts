@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindOneOptions, Repository } from 'typeorm';
 import { CreatePostDto } from './dto/create-post.dto';
 import { SearchPostDto } from './dto/search-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
@@ -10,7 +10,7 @@ import { PostEntity } from './entities/post.entity';
 export class PostService {
   constructor(
     @InjectRepository(PostEntity)
-    private repository: Repository<PostEntity>,
+    private repository: Repository<PostEntity>
   ) {}
 
   create(dto: CreatePostDto) {
@@ -77,11 +77,11 @@ export class PostService {
     // if (!find) {
     //   throw new NotFoundException('Статья не найдена');
     // }
-    return await this.repository.findOneById(+id);
+    return await this.repository.findOne({ where: { id: id } });
   }
 
   async update(id: number, dto: UpdatePostDto) {
-    const find = await this.repository.findOneById(+id);
+    const find = await this.repository.findOne({ where: { id: id } });
 
     if (!find) {
       throw new NotFoundException('Статья не найдена');
@@ -91,7 +91,7 @@ export class PostService {
   }
 
   async remove(id: number) {
-    const find = await this.repository.findOneById(+id);
+    const find = await this.repository.findOne({ where: { id: id } });
 
     if (!find) {
       throw new NotFoundException('Статья не найдена');
