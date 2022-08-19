@@ -26,8 +26,8 @@ export class CommentController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.commentService.findOne({ where: { id: id } });
+  findOne(@Param('id') id: number) {
+    return this.commentService.findOne(id);
   }
 
   @Patch(':id')

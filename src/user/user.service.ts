@@ -15,7 +15,6 @@ export class UserService {
   ) {}
 
   create(dto: CreateUserDto) {
-    console.log(dto);
     return this.repository.save(dto);
   }
 
