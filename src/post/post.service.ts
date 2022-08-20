@@ -4,6 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CommentEntity } from 'src/comment/entities/comment.entity';
 import { Repository } from 'typeorm';
 import { CreatePostDto } from './dto/create-post.dto';
 import { SearchPostDto } from './dto/search-post.dto';
@@ -63,7 +64,7 @@ export class PostService {
     return { items, count };
   }
 
-  async findOne(id: number) {
+  async findById(id: number) {
     await this.repository
       .createQueryBuilder('posts')
       .whereInIds(id)
