@@ -1,8 +1,9 @@
-import { IsEmail, Length } from 'class-validator';
+import { IsEmail, IsString, Length } from 'class-validator';
 import { UniqueOnDatabase } from 'src/auth/validations/UniqueValidation';
 import { UserEntity } from '../entities/user.entity';
 
 export class CreateUserDto {
+  @IsString()
   fullName: string;
 
   @IsEmail(undefined, { message: 'Неверная почта' })

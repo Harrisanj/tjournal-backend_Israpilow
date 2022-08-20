@@ -62,7 +62,10 @@ export class UserService {
   }
 
   update(id: number, dto: UpdateUserDto) {
-    return this.repository.update(id, dto);
+    return this.repository.update(id, {
+      fullName: dto.fullName,
+      password: dto.password,
+    });
   }
 
   async search(dto: SearchUserDto) {
