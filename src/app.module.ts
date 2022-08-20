@@ -24,9 +24,9 @@ import { AuthModule } from './auth/auth.module';
       database: process.env.POSTGRES_DATABASE,
       entities: [UserEntity, PostEntity, CommentEntity],
       synchronize: true, //Нужно отключать в продакшене. Ибо все данные сотрутся..
-      ssl: {
-        rejectUnauthorized: false,
-      },
+      // ssl: {
+      //   rejectUnauthorized: false,
+      // },
       autoLoadEntities: true,
     }),
     UserModule,
