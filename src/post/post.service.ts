@@ -74,7 +74,11 @@ export class PostService {
       })
       .execute();
 
-    return await this.repository.findOne({ where: { id: id } });
+    const post = await this.repository.findOne({ where: { id: id } });
+    if (!post) {
+      return []
+    }
+    return post
   }
 
   create(dto: CreatePostDto, userId: number) {
