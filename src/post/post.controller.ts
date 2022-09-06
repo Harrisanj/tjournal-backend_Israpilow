@@ -27,8 +27,6 @@ import { Response } from "express";
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
-  // upload single file
-
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@User() userId: number, @Body() dto: CreatePostDto) {
@@ -71,7 +69,8 @@ export class PostController {
     return this.postService.findById(+id);
   }
 
-  @Post('upload')
+// Функционал для загрузки изображения
+/*  @Post('upload')
   @UseInterceptors(FileInterceptor('file', {
     storage: diskStorage({
       destination: './uploads',
@@ -83,14 +82,14 @@ export class PostController {
         cb(null, newFileName);
       }
     }),
-    fileFilter: (req, file, cb) => {
+    /!*fileFilter: (req, file, cb) => {
       if (!file.originalname.match(/\.(jpg,jpeg,png,gif)$/)) {
         cb(null, false)
       }
       cb(null, true);
-    }
-  }))
-  uploadFile(@UploadedFile() file: Express.Multer.File) {
+    }*!/
+  }))*/
+/*  uploadFile(@UploadedFile() file: Express.Multer.File) {
     console.log(file);
     if (!file) {
       throw new BadRequestException('File is not an image');
@@ -104,5 +103,5 @@ export class PostController {
   @Get('pictures/:filename')
   async getPicture(@Param('filename') filename, @Res() res: Response) {
     res.sendFile(filename, {root: './uploads'})
-  }
+  }*/
 }

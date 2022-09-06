@@ -73,7 +73,6 @@ export class PostService {
         views: () => 'views + 1',
       })
       .execute();
-
     const post = await this.repository.findOne({ where: { id: id } });
     if (!post) {
       return []
