@@ -1,20 +1,27 @@
 import {
-  Controller,
-  Get,
-  Post,
+  BadRequestException,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
   Query,
+  Res,
+  UploadedFile,
   UseGuards,
-} from '@nestjs/common';
-import { PostService } from './post.service';
-import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
-import { SearchPostDto } from './dto/search-post.dto';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { User } from 'src/decorators/user.decorators';
+  UseInterceptors
+} from "@nestjs/common";
+import { PostService } from "./post.service";
+import { CreatePostDto } from "./dto/create-post.dto";
+import { UpdatePostDto } from "./dto/update-post.dto";
+import { SearchPostDto } from "./dto/search-post.dto";
+import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
+import { User } from "src/decorators/user.decorators";
+import { diskStorage } from "multer";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { Response } from "express";
 
 @Controller('posts')
 export class PostController {
@@ -61,4 +68,40 @@ export class PostController {
   findOne(@Param('id') id: string) {
     return this.postService.findById(+id);
   }
+
+// Функционал для загрузки изображения
+/*  @Post('upload')
+  @UseInterceptors(FileInterceptor('file', {
+    storage: diskStorage({
+      destination: './uploads',
+      filename: (req, file, cb) => {
+        const name = file.originalname.split('.')[0];
+        const fileExtension = file.originalname.split('.')[1];
+        const newFileName = name.split(' ').join('_') + '_' + Date.now() + '.' + fileExtension;
+
+        cb(null, newFileName);
+      }
+    }),
+    /!*fileFilter: (req, file, cb) => {
+      if (!file.originalname.match(/\.(jpg,jpeg,png,gif)$/)) {
+        cb(null, false)
+      }
+      cb(null, true);
+    }*!/
+  }))*/
+/*  uploadFile(@UploadedFile() file: Express.Multer.File) {
+    console.log(file);
+    if (!file) {
+      throw new BadRequestException('File is not an image');
+    } else {
+      return {
+        filePath: `http://localhost:6200/posts/pictures/${file.filename}`
+      }
+    }
+  }
+
+  @Get('pictures/:filename')
+  async getPicture(@Param('filename') filename, @Res() res: Response) {
+    res.sendFile(filename, {root: './uploads'})
+  }*/
 }

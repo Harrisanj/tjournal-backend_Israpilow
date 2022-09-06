@@ -73,7 +73,6 @@ export class PostService {
         views: () => 'views + 1',
       })
       .execute();
-
     const post = await this.repository.findOne({ where: { id: id } });
     if (!post) {
       return []
@@ -91,6 +90,7 @@ export class PostService {
       tags: dto.tags,
       user: { id: userId },
       description: firstParagraph || '',
+      image: dto.image,
     });
   }
 

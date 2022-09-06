@@ -40,4 +40,7 @@ export class PostEntity {
 
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
+
+  @Column({ nullable: true })
+  image?: string;
 }

@@ -36,7 +36,6 @@ export class UserService {
       return obj;
     });
   }
-
   async findById(id: number) {
     const arr = await this.repository
       .createQueryBuilder('u')
@@ -48,14 +47,13 @@ export class UserService {
       )
       .loadRelationCountAndMap('u.commentsCount', 'u.comments', 'comments')
       .getMany();
-
-    return arr
-      .map((obj) => {
-        delete obj.comments;
-        return obj;
-      })
-      .filter((obj) => obj.id === id);
-  }
+      const result = arr.map((obj) => {
+          delete obj.comments;
+          return obj;
+        }).filter((obj) => obj.id === id);
+      return result[0]
+      /*    return this.repository.findOne(id);*/
+      }
 
   findByCond(cond: LoginUserDto) {
     return this.repository.findOne({ where: cond });

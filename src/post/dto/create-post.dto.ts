@@ -1,9 +1,10 @@
-import { IsArray, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsOptional, IsString } from "class-validator";
 
 export interface OutputBlockData {
   id?: string;
   type: any;
   data: any;
+  image?: any;
 }
 
 export class CreatePostDto {
@@ -16,4 +17,8 @@ export class CreatePostDto {
   @IsOptional()
   @IsArray()
   tags: string;
+
+  @IsOptional()
+  @IsString()
+  image: string;
 }
